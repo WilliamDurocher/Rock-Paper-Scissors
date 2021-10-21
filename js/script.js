@@ -1,9 +1,8 @@
 /**
  * TODO:
- * -Add hover effect on buttons (bigger btn and small tooltip on top?)
- * -Add effect when winning/losing/draw round
  * -Add end of game screen + try again Button
  * -Add surprise
+ * -Add info screen
  * -Add effect when first opening app (?)
  * -Add traduction (??)
  */
@@ -24,6 +23,10 @@ function playRound(playerSelection, computerSelection) {
 
     if (computerSelection === playerSelection) {
         result = `Round is null, both players chose ${computerSelection}`;
+        flashLabelsColor('yellow');
+
+
+        
     }
     else if (
         (computerSelection === choices[0] && playerSelection === choices[2]) ||
@@ -31,10 +34,14 @@ function playRound(playerSelection, computerSelection) {
         (computerSelection === choices[1] && playerSelection === choices[0])) {
         result = `You lose! ${computerSelection} beats ${playerSelection}!`;
         updateScore(COMPUTER_SCORE_ID);
+        flashLabelsColor('red');
+
+
 
     } else {
         result = `You win! ${playerSelection} beats ${computerSelection}!`;
         updateScore(PLAYER_SCORE_ID);
+        flashLabelsColor('green');
 
     }
 
@@ -55,6 +62,20 @@ function resetScores() {
 
 function getScore(scoreId) {
     return document.getElementById(scoreId).innerHTML;
+}
+
+function flashLabelsColor(color){
+    let cpu = document.getElementById('computer-label');
+    let player = document.getElementById('player-label');
+
+    cpu.style.color = color;
+    player.style.color = color;
+
+    setTimeout(function() { 
+        cpu.style.color = "white"; 
+        player.style.color = "white"; 
+
+    }, 500);
 }
 
 //play 5 games against computer
