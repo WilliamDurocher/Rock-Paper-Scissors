@@ -10,12 +10,12 @@
 </head>
 
 <body>
-    <div class="game-container">
-        <div class="description-container">
+    <div id="game-container">
+        <div id="description-container">
             <h1>Welcome to Willy's Rock, Paper, Scissors game!</h1>
             <div class="description">Try to beat me 5 times, You might get a surprise if you do.</div>
         </div>
-        <div class="btn-container">
+        <div id="btn-container">
             <div id="Rock" class="btn">
                 <img src="images/landslide.png" alt="Rock"/>
             </div>
@@ -26,24 +26,27 @@
                 <img src="images/scissors.png" alt="Scissors"/>
             </div>
         </div>
-        <div class="score-label">
+        <div id="score-label">
             <div class="label" id="player-label">You</div>
             <div class="label" id="computer-label">Computer</div>
         </div>
-        <div class="score-container">
+        <div id="score-container">
             <div id="player-score" class="score">0</div>
             <div id="computer-score" class="score">0</div>
         </div>
         <div class="bottom-info btn"></div>
+
+        <div id="endgame-container">
+            <div id="endgame"></div>
+            <a id="endgame-btn" class="btn"></a>
+        </div>
     </div>
-    <div class="endgame-container hide">
-        <div class="endgame hide"></div>
-        <div class="endgame-btn hide"></div>
-    </div>
+
 
    
    
-</div>
+
+
 </body>
 <script src="js/script.js"></script>
 <!--
