@@ -97,14 +97,43 @@ flex-direction: column;
     font-size: 40px;
 }
 
+#endgame-btn-text{
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    width: 100%;
+    
+}
+
 #endgame-btn {
     border: solid;
-    width: 200px;
+    width: 250px;
     text-align: center;
     border-radius: 8px;
     font-size: 20px;
     height: 50px;
     line-height: 50px;
     margin-top: 20px;
-    transition: transform .2s;
+    transition:  all 0.5s;
+    cursor: pointer;
 }
+
+#endgame-btn:hover{
+    padding-right: 25px;
+}
+
+
+#endgame-btn-text::after{
+    content: var(--endgame-btn-icon); 
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+    padding-top: 10px;
+}
+
+#endgame-btn:hover #endgame-btn-text:after {
+    opacity: 1;
+    right: 0;
+  }

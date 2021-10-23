@@ -22,7 +22,7 @@ function playRound(playerSelection, computerSelection) {
 
     if (computerSelection === playerSelection) {
         result = `Round is null, both players chose ${computerSelection}`;
-        flashLabelsColor('yellow');      
+        flashLabelsColor('yellow');
     }
     else if (
         (computerSelection === choices[0] && playerSelection === choices[2]) ||
@@ -55,16 +55,16 @@ function getScore(scoreId) {
     return document.getElementById(scoreId).innerHTML;
 }
 
-function flashLabelsColor(color){
+function flashLabelsColor(color) {
     let cpu = document.getElementById('computer-label');
     let player = document.getElementById('player-label');
 
     cpu.style.color = color;
     player.style.color = color;
 
-    setTimeout(function() { 
-        cpu.style.color = "white"; 
-        player.style.color = "white"; 
+    setTimeout(function () {
+        cpu.style.color = "white";
+        player.style.color = "white";
 
     }, 800);
 }
@@ -85,40 +85,53 @@ buttons.forEach((button) => {
     button.addEventListener('click', () => {
         //alert(
         console.log(playRound(button.id, computerPlay()));
-        if (getScore(COMPUTER_SCORE_ID) == 5){
+        if (getScore(COMPUTER_SCORE_ID) == 5) {
             showEndGame(COMPUTER_SCORE_ID);
-        }else if(getScore(PLAYER_SCORE_ID) == 5) {
+        } else if (getScore(PLAYER_SCORE_ID) == 5) {
             showEndGame(PLAYER_SCORE_ID);
             resetScores();
         }
     });
 });
 
-const tryAgainbtn = document.getElementById('endgame-btn');
 
-tryAgainbtn.addEventListener('click', () =>{
-    restartGame();
-})
 
-function showEndGame(){
-hideGame();
-document.getElementById('endgame').innerText = "You lost the game dawg";
-document.getElementById('endgame-btn').innerText = "try again";
+function showEndGame(winner) {
+    const endgameBtn = document.getElementById('endgame-btn');
 
+
+    hideGame();
+    if (winner == COMPUTER_SCORE_ID) {
+        document.getElementById('endgame').innerText = "You lost the game dawg";
+        document.getElementById('endgame-btn-text').innerText = "try again";
+        document.getElementById('endgame-btn-text').style.setProperty('--endgame-btn-icon', "url('../images/refresh.png')");
+        endgameBtn.addEventListener('click', () => {
+            restartGame();
+        })
+    } else {
+        document.getElementById('endgame').innerText = "Congratulations! You beat me. Ready for the surprise?";
+        document.getElementById('endgame-btn-text').innerText = "Show Surprise";
+        document.getElementById('endgame-btn-text').style.setProperty('--endgame-btn-icon', "url('../images/dog-house.png')");
+
+        endgameBtn.addEventListener('click', () => {
+            showSurprise();
+        })
+
+    }
 
 
 }
 
-function hideGame(){
+function hideGame() {
     document.getElementById('description-container').style.visibility = 'hidden';
     document.getElementById('btn-container').style.visibility = 'hidden';
     document.getElementById('score-container').style.visibility = 'hidden';
     document.getElementById('score-label').style.visibility = 'hidden';
     document.getElementById('endgame-container').style.display = 'flex';
-    
+
 }
 
-function restartGame(){
+function restartGame() {
     document.getElementById('description-container').style.visibility = 'visible';
     document.getElementById('btn-container').style.visibility = 'visible';
     document.getElementById('score-container').style.visibility = 'visible';
@@ -126,4 +139,8 @@ function restartGame(){
     document.getElementById('endgame-container').style.display = 'none';
 
     resetScores();
+}
+
+function showSurprise(){
+    
 }
