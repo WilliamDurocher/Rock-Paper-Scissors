@@ -1,14 +1,28 @@
 /**
  * TODO:
- * -Add surprise
  * -Add info screen
  * -Add effect when first opening app (?)
  * -Add traduction (??)
  */
 
 const choices = ['Rock', 'Paper', 'Scissors'];
-const PLAYER_SCORE_ID = 'player-score';
-const COMPUTER_SCORE_ID = 'computer-score';
+const player = 'player-score';
+const computer = 'computer-score';
+
+const buttons = document.getElementById('btn-container').querySelectorAll('.btn');
+
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        //alert(
+        console.log(playRound(button.id, computerPlay()));
+        if (getScore(computer) == 5) {
+            showEndGame(computer);
+        } else if (getScore(player) == 5) {
+            showEndGame(player);
+        }
+    });
+});
 
 
 function computerPlay() {
@@ -29,11 +43,11 @@ function playRound(playerSelection, computerSelection) {
         (computerSelection === choices[2] && playerSelection === choices[1]) ||
         (computerSelection === choices[1] && playerSelection === choices[0])) {
         result = `You lose! ${computerSelection} beats ${playerSelection}!`;
-        updateScore(COMPUTER_SCORE_ID);
+        updateScore(computer);
         flashLabelsColor('red');
     } else {
         result = `You win! ${playerSelection} beats ${computerSelection}!`;
-        updateScore(PLAYER_SCORE_ID);
+        updateScore(player);
         flashLabelsColor('green');
     }
     return result;
@@ -47,8 +61,8 @@ function updateScore(scoreId) {
 }
 
 function resetScores() {
-    document.getElementById(PLAYER_SCORE_ID).innerHTML = 0;
-    document.getElementById(COMPUTER_SCORE_ID).innerHTML = 0;
+    document.getElementById(player).innerHTML = 0;
+    document.getElementById(computer).innerHTML = 0;
 }
 
 function getScore(scoreId) {
@@ -69,56 +83,28 @@ function flashLabelsColor(color) {
     }, 800);
 }
 
-//play 5 games against computer
-function game() {
-
-    //Removed 5 games limit
-    // for (let i = 1; i <=5;i++){
-
-    // }
-    let playerSelection = prompt("Rock, Paper, Scissors?");
-    console.log(playRound(playerSelection, computerPlay()));
-}
-const buttons = document.getElementById('btn-container').querySelectorAll('.btn');
-
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-        //alert(
-        console.log(playRound(button.id, computerPlay()));
-        if (getScore(COMPUTER_SCORE_ID) == 5) {
-            showEndGame(COMPUTER_SCORE_ID);
-        } else if (getScore(PLAYER_SCORE_ID) == 5) {
-            showEndGame(PLAYER_SCORE_ID);
-            resetScores();
-        }
-    });
-});
-
-
-
 function showEndGame(winner) {
-    const endgameBtn = document.getElementById('endgame-btn');
 
+    const endGameBtn = document.getElementById('endgame-btn');
 
     hideGame();
-    if (winner == COMPUTER_SCORE_ID) {
+
+    if (winner == computer) {
         document.getElementById('endgame').innerText = "You lost the game dawg";
         document.getElementById('endgame-btn-text').innerText = "try again";
         document.getElementById('endgame-btn-text').style.setProperty('--endgame-btn-icon', "url('../images/refresh.png')");
-        endgameBtn.addEventListener('click', () => {
+        endGameBtn.onclick = function(){
             restartGame();
-        })
-    } else {
+        }
+    } else if (winner == player){
         document.getElementById('endgame').innerText = "Congratulations! You beat me. Ready for the surprise?";
         document.getElementById('endgame-btn-text').innerText = "Show Surprise";
         document.getElementById('endgame-btn-text').style.setProperty('--endgame-btn-icon', "url('../images/dog-house.png')");
-
-        endgameBtn.addEventListener('click', () => {
+        endGameBtn.onclick = function(){
             showSurprise();
-        })
+        }
 
     }
-
 
 }
 
@@ -137,10 +123,21 @@ function restartGame() {
     document.getElementById('score-container').style.visibility = 'visible';
     document.getElementById('score-label').style.visibility = 'visible';
     document.getElementById('endgame-container').style.display = 'none';
-
     resetScores();
 }
 
 function showSurprise(){
+    document.getElementById('surprise').style.display = 'inline-block';
+    document.getElementById('endgame-btn-text').innerText = "Play again";
+    document.getElementById('endgame-btn-text').style.setProperty('--endgame-btn-icon', "url('../images/smile.png')");
+    document.getElementById('endgame').innerText = "TADAAAAAA!!!";
+
+    document.getElementById('endgame-btn').onclick =  function(){
+        restartGame();
+        document.getElementById('surprise').style.display = 'none';
+
+    }
+
+    
     
 }
