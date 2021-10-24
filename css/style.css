@@ -147,7 +147,64 @@ body {
     height: 600px;
 }
 
-#surprise-picture{
+#surprise-picture {
     margin: 30px;
     height: 600px;
+}
+
+#info-container {
+    display: none;
+    position: fixed;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #696969;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#info-back-btn-text {
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    width: 100%;
+}
+
+#info-back-btn {
+    border: solid;
+    width: 250px;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 20px;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 20px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+#info-back-btn:hover {
+    padding-right: 25px;
+}
+
+#info-back-btn-text::after {
+    content: url('../images/left.png');
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+    padding-top: 10px;
+}
+
+#info-back-btn:hover #info-back-btn-text:after {
+    opacity: 1;
+    right: 0;
+}
+
+#info {
+    font-size: 40px;
+    text-align: center;
 }
